@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FIT5031_Assignment.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="FIT5031_AssignmentStoreContainer">
+    <EntitySet Name="UserSet" EntityType="FIT5031_Assignment.Store.UserSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BookingSet" EntityType="FIT5031_Assignment.Store.BookingSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CourseinfoSet" EntityType="FIT5031_Assignment.Store.CourseinfoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FeedbackSet" EntityType="FIT5031_Assignment.Store.FeedbackSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserBooking" Association="FIT5031_Assignment.Store.UserBooking">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Booking" EntitySet="BookingSet" />
+    </AssociationSet>
+    <AssociationSet Name="BookingCourseinfo" Association="FIT5031_Assignment.Store.BookingCourseinfo">
+      <End Role="Booking" EntitySet="BookingSet" />
+      <End Role="Courseinfo" EntitySet="CourseinfoSet" />
+    </AssociationSet>
+    <AssociationSet Name="BookingFeedback" Association="FIT5031_Assignment.Store.BookingFeedback">
+      <End Role="Booking" EntitySet="BookingSet" />
+      <End Role="Feedback" EntitySet="FeedbackSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UserSet">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Userid" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DOB" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BookingSet">
+    <Key>
+      <PropertyRef Name="Bookingid" />
+    </Key>
+    <Property Name="Bookingid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="courseid" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="User_id" Type="int" Nullable="false" />
+    <Property Name="Courseinfo_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CourseinfoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Course_date" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Latitude" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Longitude" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FeedbackSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Rate" Type="smallint" Nullable="false" />
+    <Property Name="BookingBookingid" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UserBooking">
+    <End Role="User" Type="FIT5031_Assignment.Store.UserSet" Multiplicity="1" />
+    <End Role="Booking" Type="FIT5031_Assignment.Store.BookingSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookingCourseinfo">
+    <End Role="Booking" Type="FIT5031_Assignment.Store.BookingSet" Multiplicity="*" />
+    <End Role="Courseinfo" Type="FIT5031_Assignment.Store.CourseinfoSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Courseinfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="Courseinfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookingFeedback">
+    <End Role="Booking" Type="FIT5031_Assignment.Store.BookingSet" Multiplicity="1" />
+    <End Role="Feedback" Type="FIT5031_Assignment.Store.FeedbackSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Booking">
+        <PropertyRef Name="Bookingid" />
+      </Principal>
+      <Dependent Role="Feedback">
+        <PropertyRef Name="BookingBookingid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="FIT5031_Assignment" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="FIT5031_AssignmentContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserSet" EntityType="FIT5031_Assignment.User" />
+          <EntitySet Name="BookingSet" EntityType="FIT5031_Assignment.Booking" />
+          <EntitySet Name="CourseinfoSet" EntityType="FIT5031_Assignment.Courseinfo" />
+          <AssociationSet Name="UserBooking" Association="FIT5031_Assignment.UserBooking">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Booking" EntitySet="BookingSet" />
+          </AssociationSet>
+          <AssociationSet Name="BookingCourseinfo" Association="FIT5031_Assignment.BookingCourseinfo">
+            <End Role="Booking" EntitySet="BookingSet" />
+            <End Role="Courseinfo" EntitySet="CourseinfoSet" />
+          </AssociationSet>
+          <EntitySet Name="FeedbackSet" EntityType="FIT5031_Assignment.Feedback" />
+          <AssociationSet Name="BookingFeedback" Association="FIT5031_Assignment.BookingFeedback">
+            <End Role="Booking" EntitySet="BookingSet" />
+            <End Role="Feedback" EntitySet="FeedbackSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <Property Name="Userid" Type="String" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="FIT5031_Assignment.UserBooking" FromRole="User" ToRole="Booking" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="Bookingid" />
+          </Key>
+          <Property Name="Bookingid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="courseid" Type="String" Nullable="false" />
+          <Property Name="PhoneNo" Type="String" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="FIT5031_Assignment.UserBooking" FromRole="Booking" ToRole="User" />
+          <Property Name="User_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Courseinfo" Relationship="FIT5031_Assignment.BookingCourseinfo" FromRole="Booking" ToRole="Courseinfo" />
+          <NavigationProperty Name="Feedback" Relationship="FIT5031_Assignment.BookingFeedback" FromRole="Booking" ToRole="Feedback" />
+        </EntityType>
+        <EntityType Name="Courseinfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" Nullable="false" />
+          <Property Name="Course_date" Type="String" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" />
+          <Property Name="Latitude" Type="String" Nullable="false" />
+          <Property Name="Longitude" Type="String" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="FIT5031_Assignment.BookingCourseinfo" FromRole="Courseinfo" ToRole="Booking" />
+        </EntityType>
+        <Association Name="UserBooking">
+          <End Type="FIT5031_Assignment.User" Role="User" Multiplicity="1" />
+          <End Type="FIT5031_Assignment.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookingCourseinfo">
+          <End Type="FIT5031_Assignment.Booking" Role="Booking" Multiplicity="*" />
+          <End Type="FIT5031_Assignment.Courseinfo" Role="Courseinfo" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comment" Type="String" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Rate" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="FIT5031_Assignment.BookingFeedback" FromRole="Feedback" ToRole="Booking" />
+          <Property Name="BookingBookingid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="BookingFeedback">
+          <End Type="FIT5031_Assignment.Booking" Role="Booking" Multiplicity="1" />
+          <End Type="FIT5031_Assignment.Feedback" Role="Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="Bookingid" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="BookingBookingid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FIT5031_AssignmentStoreContainer" CdmEntityContainer="FIT5031_AssignmentContainer">
+    <EntitySetMapping Name="UserSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5031_Assignment.User)">
+        <MappingFragment StoreEntitySet="UserSet">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookingSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5031_Assignment.Booking)">
+        <MappingFragment StoreEntitySet="BookingSet">
+          <ScalarProperty Name="Bookingid" ColumnName="Bookingid" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="courseid" ColumnName="courseid" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseinfoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5031_Assignment.Courseinfo)">
+        <MappingFragment StoreEntitySet="CourseinfoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+          <ScalarProperty Name="Course_date" ColumnName="Course_date" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeedbackSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5031_Assignment.Feedback)">
+        <MappingFragment StoreEntitySet="FeedbackSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="BookingBookingid" ColumnName="BookingBookingid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="BookingCourseinfo" TypeName="FIT5031_Assignment.BookingCourseinfo" StoreEntitySet="BookingSet">
+      <EndProperty Name="Courseinfo">
+        <ScalarProperty Name="Id" ColumnName="Courseinfo_Id" />
+      </EndProperty>
+      <EndProperty Name="Booking">
+        <ScalarProperty Name="Bookingid" ColumnName="Bookingid" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

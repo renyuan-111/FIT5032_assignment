@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FIT5031_AssignmentStoreContainer" CdmEntityContainer="FIT5031_AssignmentContainer">
+    <EntitySetMapping Name="UserSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5031_Assignment.User)">
+        <MappingFragment StoreEntitySet="UserSet">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookingSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5031_Assignment.Booking)">
+        <MappingFragment StoreEntitySet="BookingSet">
+          <ScalarProperty Name="Bookingid" ColumnName="Bookingid" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="courseid" ColumnName="courseid" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseinfoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5031_Assignment.Courseinfo)">
+        <MappingFragment StoreEntitySet="CourseinfoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+          <ScalarProperty Name="Course_date" ColumnName="Course_date" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeedbackSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5031_Assignment.Feedback)">
+        <MappingFragment StoreEntitySet="FeedbackSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="BookingBookingid" ColumnName="BookingBookingid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="BookingCourseinfo" TypeName="FIT5031_Assignment.BookingCourseinfo" StoreEntitySet="BookingSet">
+      <EndProperty Name="Courseinfo">
+        <ScalarProperty Name="Id" ColumnName="Courseinfo_Id" />
+      </EndProperty>
+      <EndProperty Name="Booking">
+        <ScalarProperty Name="Bookingid" ColumnName="Bookingid" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
